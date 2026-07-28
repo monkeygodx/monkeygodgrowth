@@ -195,7 +195,6 @@
     .modal-method-sub{font-size:0.73rem;color:var(--text-tertiary);margin-top:1px;}
     .modal-method-arrow{margin-left:auto;font-size:0.75rem;color:var(--text-tertiary);}
     .modal-disclaimer{margin-top:16px;font-size:0.72rem;color:var(--text-tertiary);text-align:center;line-height:1.6;}
-
     /* ── AUTH MODAL ─────────────────────────────────────────── */
     .auth-backdrop{position:fixed;inset:0;background:rgba(4,2,16,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:600;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.22s;}
     .auth-backdrop.visible{opacity:1;pointer-events:all;}
@@ -223,14 +222,12 @@
     .nav-auth-email{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     .nav-logout-btn{font-size:0.75rem;color:var(--text-tertiary);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 9px;cursor:pointer;font-family:inherit;transition:all var(--transition);}
     .nav-logout-btn:hover{border-color:var(--border-strong);color:var(--text-secondary);}
-
     @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);}.pricing-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto;}.pricing-card.featured{order:-1;}}
     @media(max-width:768px){:root{--section-v:72px;}.nav-links,.nav-right .btn-secondary{display:none;}.hamburger{display:flex;}.hero{padding:110px 0 68px;min-height:auto;}.hero-monkey-bg{display:none;}.problem-grid{grid-template-columns:1fr;gap:28px;}.system-card{position:static;}.steps-grid{grid-template-columns:1fr;border-radius:var(--radius);}.modules-grid{grid-template-columns:1fr;border-radius:var(--radius);}.testimonials-grid{grid-template-columns:1fr;}.proof-inner{justify-content:center;}.proof-stats{gap:28px;justify-content:center;}.proof-platforms{justify-content:center;}.footer-inner{flex-direction:column;align-items:center;text-align:center;}.footer-links{flex-wrap:wrap;justify-content:center;}}
     @media(max-width:540px){.hero-headline{font-size:2.9rem;}.hero-ctas{flex-direction:column;align-items:flex-start;}.modal-box,.auth-box{padding:28px 22px 32px;}.final-cta-btns{flex-direction:column;align-items:center;}.final-cta{padding:88px 0;}}
   </style>
 </head>
 <body>
-
 <nav class="nav" id="nav">
   <div class="container">
     <div class="nav-inner">
@@ -252,8 +249,10 @@
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
+      <!-- ── CHANGE 1: added Log In button to static nav-right ── -->
       <div class="nav-right" id="navRight">
         <a href="#pricing" class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;">See Tiers</a>
+        <button class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;" onclick="openAuth('login')">Log In</button>
         <button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Get God Mode</button>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -262,16 +261,16 @@
     </div>
   </div>
 </nav>
-
+<!-- ── CHANGE 2: added Log In button to mobile nav ── -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">✕</button>
   <a href="#system"  class="mobile-link">System</a>
   <a href="#modules" class="mobile-link">Modules</a>
   <a href="#pricing" class="mobile-link">Pricing</a>
   <a href="#faq"     class="mobile-link">FAQ</a>
+  <button class="btn btn-secondary btn-lg" style="margin-top:8px;" onclick="openAuth('login')">Log In</button>
   <button class="btn btn-primary btn-lg" style="margin-top:8px;" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Get God Mode →</button>
 </div>
-
 <section class="hero">
   <svg class="hero-monkey-bg" viewBox="0 0 500 500" fill="none" aria-hidden="true">
     <circle cx="55" cy="248" r="55" stroke="white" stroke-width="2"/><circle cx="55" cy="248" r="32" stroke="white" stroke-width="1.5"/>
@@ -309,7 +308,6 @@
     </div>
   </div>
 </section>
-
 <div class="proof-bar">
   <div class="container">
     <div class="proof-inner">
@@ -335,7 +333,6 @@
     </div>
   </div>
 </div>
-
 <section class="section" id="system">
   <div class="container">
     <span class="eyebrow">The problem</span>
@@ -374,7 +371,6 @@
     </div>
   </div>
 </section>
-
 <section class="section section-alt">
   <div class="container">
     <span class="eyebrow">How it works</span>
@@ -387,7 +383,6 @@
     </div>
   </div>
 </section>
-
 <section class="section" id="modules">
   <div class="container">
     <span class="eyebrow">The modules</span>
@@ -405,7 +400,6 @@
     </div>
   </div>
 </section>
-
 <section class="section section-alt" id="pricing">
   <div class="container">
     <div class="pricing-header">
@@ -464,7 +458,6 @@
     <div class="pricing-footer-note">Charges appear as <strong>SQ *MONKEYGOD</strong> on your statement. &nbsp;·&nbsp; 7-day refund window if it doesn't match what's described above.</div>
   </div>
 </section>
-
 <section class="section">
   <div class="container">
     <span class="eyebrow">What creators say</span>
@@ -476,7 +469,6 @@
     </div>
   </div>
 </section>
-
 <section class="section section-alt" id="faq">
   <div class="container">
     <div class="faq-header">
@@ -495,7 +487,6 @@
     </div>
   </div>
 </section>
-
 <section class="final-cta">
   <div class="container">
     <div class="final-cta-inner">
@@ -517,7 +508,6 @@
     </div>
   </div>
 </section>
-
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -539,7 +529,6 @@
     </div>
   </div>
 </footer>
-
 <!-- AUTH MODAL -->
 <div class="auth-backdrop" id="authBackdrop">
   <div class="auth-box">
@@ -566,7 +555,6 @@
     </div>
   </div>
 </div>
-
 <!-- PAYMENT MODAL (kept for backwards compat) -->
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal-box">
@@ -589,12 +577,10 @@
     <div class="modal-disclaimer">Access delivered instantly after payment.</div>
   </div>
 </div>
-
 <script>
   /* ── Nav scroll ── */
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-
   /* ── Mobile menu ── */
   const hamburger   = document.getElementById('hamburger');
   const mobileNav   = document.getElementById('mobileNav');
@@ -604,7 +590,6 @@
   hamburger.addEventListener('click', openMobileNav);
   mobileClose.addEventListener('click', closeMobileNav);
   document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMobileNav));
-
   /* ── FAQ ── */
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -614,7 +599,6 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
-
   /* ── Payment modal (legacy) ── */
   function closeModal() {
     document.getElementById('modalBackdrop').classList.remove('visible');
@@ -623,7 +607,6 @@
   document.getElementById('modalBackdrop').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
-
   /* ── Smooth scroll ── */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
@@ -637,7 +620,6 @@
       }
     });
   });
-
   /* ── Scroll-in fade ── */
   const fadeEls = document.querySelectorAll('.step-card,.module-card,.pricing-card,.testimonial-card,.problem-item,.faq-item,.system-card');
   const io = new IntersectionObserver(entries => {
@@ -650,7 +632,6 @@
     el.style.transition = 'opacity 0.48s ease, transform 0.48s ease';
     io.observe(el);
   });
-
   /* ══════════════════════════════════════════════════════════
      AUTH
   ══════════════════════════════════════════════════════════ */
@@ -658,11 +639,9 @@
   let authUser   = null;
   let pendingUrl = null;
   let authMode   = 'signup';
-
   const getToken  = () => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } };
   const setToken  = t  => { try { localStorage.setItem(TOKEN_KEY, t); } catch {} };
   const clearToken = () => { try { localStorage.removeItem(TOKEN_KEY); } catch {} };
-
   async function checkSession() {
     const token = getToken();
     if (!token) return;
@@ -672,7 +651,7 @@
       else clearToken();
     } catch {}
   }
-
+  // ── CHANGE 3: renderNavAuth now includes Log In button in the logged-out state ──
   function renderNavAuth() {
     const navRight = document.getElementById('navRight');
     if (!navRight) return;
@@ -685,23 +664,21 @@
     } else {
       navRight.innerHTML =
         '<a href="#pricing" class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;">See Tiers</a>' +
+        '<button class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;" onclick="openAuth(\'login\')">Log In</button>' +
         '<button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen(\'https://monkeygod.cloud/premium\')">Get God Mode</button>';
     }
   }
-
   function requireAuthThen(url) {
     if (authUser) { window.location.href = url; return; }
     pendingUrl = url;
     openAuth('signup');
   }
-
   function openAuth(mode) {
     switchTab(mode || 'signup');
     document.getElementById('authBackdrop').classList.add('visible');
     document.body.style.overflow = 'hidden';
     setTimeout(() => document.getElementById('authEmail').focus(), 120);
   }
-
   function closeAuth() {
     document.getElementById('authBackdrop').classList.remove('visible');
     document.body.style.overflow = '';
@@ -710,7 +687,6 @@
     document.getElementById('authEmail').value    = '';
     document.getElementById('authPassword').value = '';
   }
-
   function switchTab(mode) {
     authMode = mode;
     const s = mode === 'signup';
@@ -725,7 +701,6 @@
     document.getElementById('authError').classList.remove('visible');
     document.getElementById('authPassword').placeholder = s ? 'Min. 8 characters' : 'Your password';
   }
-
   async function submitAuth() {
     const email    = document.getElementById('authEmail').value.trim();
     const password = document.getElementById('authPassword').value;
@@ -765,28 +740,23 @@
       btn.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
     }
   }
-
   async function logout() {
     const token = getToken();
     if (token) fetch('/api/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + token } }).catch(() => {});
     clearToken(); authUser = null; renderNavAuth();
   }
-
   document.getElementById('authBackdrop').addEventListener('click', function(e) {
     if (e.target === this) closeAuth();
   });
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeAuth(); closeModal(); }
   });
-
   // Also allow Enter key in auth inputs
   ['authEmail', 'authPassword'].forEach(id => {
     document.getElementById(id).addEventListener('keydown', e => {
       if (e.key === 'Enter') submitAuth();
     });
   });
-
   checkSession().then(renderNavAuth);
 </script>
 </body>
