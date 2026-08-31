@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're In — MonkeyGod</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0D0B1A; --bg-card: #181628;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.11);
+      --text: #efefef; --text-secondary: #78787f; --text-tertiary: #3c3c44;
+      --accent: #8040E8; --accent-dim: rgba(128,64,232,0.08); --accent-hover: #9333EA;
+      --glow-1: rgba(128,64,232,0.55); --glow-2: rgba(56,189,248,0.35);
+      --glass: rgba(24,22,40,0.55); --glass-border: rgba(255,255,255,0.09);
+      --radius: 14px; --radius-lg: 20px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;overflow-x:hidden;}
+    a{color:inherit;}
+    .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(128,64,232,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(128,64,232,0.055) 1px,transparent 1px);
+      background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 78%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 78%);}
+    .bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+    .bg-aurora::before,.bg-aurora::after{content:'';position:absolute;width:60vw;height:60vw;max-width:900px;max-height:900px;border-radius:50%;filter:blur(120px);opacity:0.35;animation:aurora-drift 22s ease-in-out infinite;}
+    .bg-aurora::before{background:var(--glow-1);top:-18%;left:-12%;}
+    .bg-aurora::after{background:var(--glow-2);bottom:-20%;right:-10%;animation-delay:-11s;animation-direction:reverse;}
+    @keyframes aurora-drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(4%,5%) scale(1.12);}}
+    @media(prefers-reduced-motion: reduce){.bg-aurora::before,.bg-aurora::after{animation:none;}}
+    .card{position:relative;z-index:1;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:48px 44px;max-width:520px;width:100%;text-align:center;box-shadow:0 20px 60px -24px rgba(128,64,232,0.5);}
+    .logo{display:flex;align-items:center;justify-content:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:28px;}
+    .logo svg{width:24px;height:24px;}
+    .check{width:56px;height:56px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(128,64,232,0.35);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;box-shadow:0 0 24px -4px var(--glow-1);}
+    .check svg{width:26px;height:26px;color:var(--accent);}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;}
+    .tier-pill{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;background:var(--accent-dim);border:1px solid rgba(128,64,232,0.28);border-radius:100px;font-size:0.73rem;font-weight:600;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:18px;}
+    p.sub{font-size:0.92rem;color:var(--text-secondary);line-height:1.7;margin-bottom:30px;}
+    .divider{height:1px;background:var(--border);margin-bottom:28px;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px 24px;border-radius:12px;font-size:0.92rem;font-weight:700;font-family:'Inter',sans-serif;border:none;cursor:pointer;transition:all 0.18s ease;}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 0 0 1px rgba(128,64,232,0.4),0 4px 20px -6px var(--glow-1);}
+    .btn-primary:hover:not(:disabled){background:var(--accent-hover);transform:translateY(-1px);}
+    .btn-primary:disabled{opacity:0.65;cursor:not-allowed;}
+    .btn-ghost{background:transparent;color:var(--text-secondary);border:1px solid var(--border-strong);margin-top:12px;}
+    .btn-ghost:hover{border-color:rgba(128,64,232,0.4);color:var(--accent);}
+    .status{font-size:0.79rem;color:var(--text-tertiary);margin-top:16px;min-height:16px;}
+    .status.error{color:#ef4444;}
+    .status.ok{color:#4ade80;}
+    .footnote{font-size:0.74rem;color:var(--text-tertiary);margin-top:26px;line-height:1.6;}
+    .footnote a{color:var(--accent);text-decoration:none;}
+    .hidden{display:none !important;}
+  </style>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true"></div>
+
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="6" cy="19" r="6" fill="#8040E8"/><circle cx="6" cy="19" r="3.2" fill="#0D0B1A"/>
+        <circle cx="30" cy="19" r="6" fill="#8040E8"/><circle cx="30" cy="19" r="3.2" fill="#0D0B1A"/>
+        <ellipse cx="18" cy="18" rx="13" ry="13" fill="#8040E8"/>
+        <ellipse cx="18" cy="23" rx="7.5" ry="5.5" fill="#6D28D9"/>
+        <circle cx="13.5" cy="16.5" r="2.4" fill="#0D0B1A"/><circle cx="22.5" cy="16.5" r="2.4" fill="#0D0B1A"/>
+      </svg>
+      MonkeyGod
+    </div>
+
+    <div id="loadingState">
+      <div class="status">Confirming your access…</div>
+    </div>
+
+    <div id="loggedOutState" class="hidden">
+      <div class="check" style="border-color:rgba(239,68,68,0.35);background:rgba(239,68,68,0.08);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:#ef4444;"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <h1>Log in to grab your guide</h1>
+      <p class="sub">Your payment went through, but you'll need to be logged in on this device to unlock the download — it's tied to your account.</p>
+      <div class="divider"></div>
+      <a class="btn btn-primary" href="/#pricing" style="text-decoration:none;">Go log in</a>
+    </div>
+
+    <div id="successState" class="hidden">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="tier-pill" id="tierPill">Premium</div>
+      <h1>You're in the loop.</h1>
+      <p class="sub" id="subText">Your access is live. Grab your guide below — it walks the whole system so you can start your first loop today.</p>
+      <div class="divider"></div>
+      <button class="btn btn-primary" id="downloadBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download my guide (PDF)
+      </button>
+      <a class="btn btn-ghost" href="/" style="text-decoration:none;">Back to MonkeyGod</a>
+      <div class="status" id="dlStatus"></div>
+    </div>
+
+    <div class="footnote">Trouble downloading? Email <a href="mailto:support@monkeygod.xyz">support@monkeygod.xyz</a> with your order and we'll sort it out.</div>
+  </div>
+
+  <script>
+    const TOKEN_KEY = 'mg_xyz_token';
+    const TIER_META = {
+      basic:     { label: 'Basic',     file: 'basic' },
+      premium:   { label: 'Premium',   file: 'premium' },
+      exclusive: { label: 'Exclusive', file: 'exclusive' },
+    };
+    function getToken() { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } }
+
+    // NOTE: mycheckout.live redirects here with ?tier=<tier> after payment.
+    // This build has no server-to-server webhook from mycheckout.live, so the
+    // tier shown/downloaded here is read from that redirect param rather than
+    // verified against a stored order record. The one real gate is the login
+    // check below — an unauthenticated visitor gets nothing. If mycheckout.live
+    // later adds webhooks, wire them into a /api/webhook route in server.js and
+    // check purchase status server-side before serving the file.
+    const params = new URLSearchParams(window.location.search);
+    const tierKey = params.get('tier');
+    const tier = TIER_META[tierKey] || TIER_META.premium;
+
+    async function init() {
+      const token = getToken();
+      const loadingEl   = document.getElementById('loadingState');
+      const loggedOutEl = document.getElementById('loggedOutState');
+      const successEl   = document.getElementById('successState');
+
+      if (!token) {
+        loadingEl.classList.add('hidden');
+        loggedOutEl.classList.remove('hidden');
+        return;
+      }
+      try {
+        const res = await fetch('/api/me', { headers: { Authorization: 'Bearer ' + token } });
+        if (!res.ok) throw new Error('session');
+      } catch {
+        loadingEl.classList.add('hidden');
+        loggedOutEl.classList.remove('hidden');
+        return;
+      }
+
+      document.getElementById('tierPill').textContent = tier.label;
+      document.getElementById('subText').textContent =
+        'Your ' + tier.label + ' access is live. Grab your guide below — it walks the whole system so you can start your first loop today.';
+      loadingEl.classList.add('hidden');
+      successEl.classList.remove('hidden');
+
+      document.getElementById('downloadBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('downloadBtn');
+        const statusEl = document.getElementById('dlStatus');
+        btn.disabled = true;
+        statusEl.className = 'status';
+        statusEl.textContent = 'Preparing your download…';
+        try {
+          const res = await fetch('/api/download/' + tier.file, {
+            headers: { Authorization: 'Bearer ' + getToken() },
+          });
+          if (!res.ok) throw new Error('download failed');
+          const blob = await res.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'MonkeyGod-' + tier.label + '-Guide.pdf';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+          statusEl.classList.add('ok');
+          statusEl.textContent = 'Downloaded. Check your downloads folder.';
+        } catch {
+          statusEl.classList.add('error');
+          statusEl.textContent = "Couldn't fetch the file — email support@monkeygod.xyz and we'll get it to you.";
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    }
+    init();
+  </script>
+</body>
+</html>
