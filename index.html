@@ -127,6 +127,7 @@
     .pricing-tier-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:20px;}
     .pricing-amount{font-family:'Space Grotesk',sans-serif;font-size:3.4rem;font-weight:700;letter-spacing:-0.04em;line-height:1;color:var(--text);}
     .pricing-amount sup{font-size:1.3rem;vertical-align:super;letter-spacing:0;font-weight:600;}
+    .pricing-cents{font-size:1.5rem;font-weight:600;letter-spacing:0;color:var(--text-secondary);}
     .pricing-cycle{font-size:0.77rem;color:var(--text-tertiary);margin:8px 0 24px;}
     .pricing-divider{height:1px;background:var(--border);margin:0 0 22px;}
     .pricing-features{list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:26px;}
@@ -225,9 +226,50 @@
     @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);}.pricing-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto;}.pricing-card.featured{order:-1;}}
     @media(max-width:768px){:root{--section-v:72px;}.nav-links,.nav-right .btn-secondary{display:none;}.hamburger{display:flex;}.hero{padding:110px 0 68px;min-height:auto;}.hero-monkey-bg{display:none;}.problem-grid{grid-template-columns:1fr;gap:28px;}.system-card{position:static;}.steps-grid{grid-template-columns:1fr;border-radius:var(--radius);}.modules-grid{grid-template-columns:1fr;border-radius:var(--radius);}.testimonials-grid{grid-template-columns:1fr;}.proof-inner{justify-content:center;}.proof-stats{gap:28px;justify-content:center;}.proof-platforms{justify-content:center;}.footer-inner{flex-direction:column;align-items:center;text-align:center;}.footer-links{flex-wrap:wrap;justify-content:center;}}
     @media(max-width:540px){.hero-headline{font-size:2.9rem;}.hero-ctas{flex-direction:column;align-items:flex-start;}.modal-box,.auth-box{padding:28px 22px 32px;}.final-cta-btns{flex-direction:column;align-items:center;}.final-cta{padding:88px 0;}}
+
+    /* ══════════════════════════════════════════════════════════
+       FUTURISTIC UPGRADE LAYER
+    ══════════════════════════════════════════════════════════ */
+    :root{
+      --glow-1: rgba(128,64,232,0.55); --glow-2: rgba(56,189,248,0.35);
+      --glass: rgba(24,22,40,0.55); --glass-strong: rgba(24,22,40,0.72);
+      --glass-border: rgba(255,255,255,0.09); --glass-border-hover: rgba(147,51,234,0.5);
+    }
+    .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(rgba(128,64,232,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(128,64,232,0.055) 1px,transparent 1px);
+      background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 78%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 78%);}
+    .bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+    .bg-aurora::before,.bg-aurora::after{content:'';position:absolute;width:60vw;height:60vw;max-width:900px;max-height:900px;border-radius:50%;filter:blur(120px);opacity:0.35;animation:aurora-drift 22s ease-in-out infinite;}
+    .bg-aurora::before{background:var(--glow-1);top:-18%;left:-12%;}
+    .bg-aurora::after{background:var(--glow-2);bottom:-20%;right:-10%;animation-delay:-11s;animation-direction:reverse;}
+    @keyframes aurora-drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(4%,5%) scale(1.12);}}
+    body > *:not(.bg-grid):not(.bg-aurora){position:relative;z-index:1;}
+    ::selection{background:var(--accent);color:#fff;}
+    .hero-headline .accent-line{background:linear-gradient(100deg,#8040E8 0%,#B37CFF 32%,#38BDF8 62%,#8040E8 100%);background-size:260% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradient-flow 7s linear infinite;}
+    @keyframes gradient-flow{to{background-position:260% center;}}
+    .hero-badge{box-shadow:0 0 0 1px rgba(128,64,232,0.15),0 0 24px -6px var(--glow-1);}
+    .btn-primary,.pricing-btn-accent,.auth-submit{position:relative;box-shadow:0 0 0 1px rgba(128,64,232,0.4),0 4px 20px -6px var(--glow-1);}
+    .btn-primary:hover,.pricing-btn-accent:hover,.auth-submit:hover:not(:disabled){box-shadow:0 0 0 1px rgba(147,51,234,0.6),0 6px 30px -4px var(--glow-1);}
+    .btn-secondary:hover{box-shadow:0 0 18px -8px var(--glow-1);}
+    .nav.scrolled{box-shadow:0 1px 0 var(--border),0 12px 40px -20px rgba(128,64,232,0.4);}
+    .bg-card,.system-card,.pricing-card,.testimonial-card,.faq-item,.step-card,.module-card,.auth-box,.modal-box{
+      background:var(--glass) !important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border-color:var(--glass-border) !important;}
+    .pricing-card:hover,.testimonial-card:hover,.system-card:hover,.problem-item:hover{border-color:var(--glass-border-hover) !important;box-shadow:0 12px 40px -20px rgba(128,64,232,0.5);}
+    .pricing-card.featured{background:linear-gradient(155deg,rgba(128,64,232,0.14) 0%,var(--glass) 55%) !important;border-color:rgba(147,51,234,0.55) !important;box-shadow:0 0 0 1px rgba(147,51,234,0.25),0 20px 60px -24px rgba(128,64,232,0.65);}
+    .popular-badge{box-shadow:0 0 20px -4px var(--glow-1);}
+    .eyebrow::before{content:'';display:inline-block;width:14px;height:1px;background:var(--accent);margin-right:8px;vertical-align:middle;box-shadow:0 0 8px var(--glow-1);}
+    .proof-bar{backdrop-filter:blur(6px);}
+    .nav.scrolled{background:rgba(13,11,26,0.72);}
+    .step-card:hover,.module-card:hover{background:rgba(30,28,46,0.7) !important;}
+    .section-alt{background:rgba(19,17,34,0.82) !important;}
+    @media(prefers-reduced-motion: reduce){.bg-aurora::before,.bg-aurora::after,.hero-headline .accent-line{animation:none;}}
   </style>
 </head>
 <body>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-aurora" aria-hidden="true"></div>
 <nav class="nav" id="nav">
   <div class="container">
     <div class="nav-inner">
@@ -253,7 +295,7 @@
       <div class="nav-right" id="navRight">
         <a href="#pricing" class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;">See Tiers</a>
         <button class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;" onclick="openAuth('login')">Log In</button>
-        <button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Get God Mode</button>
+        <button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen('premium')">Get God Mode</button>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -269,7 +311,7 @@
   <a href="#pricing" class="mobile-link">Pricing</a>
   <a href="#faq"     class="mobile-link">FAQ</a>
   <button class="btn btn-secondary btn-lg" style="margin-top:8px;" onclick="openAuth('login')">Log In</button>
-  <button class="btn btn-primary btn-lg" style="margin-top:8px;" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Get God Mode →</button>
+  <button class="btn btn-primary btn-lg" style="margin-top:8px;" onclick="requireAuthThen('premium')">Get God Mode →</button>
 </div>
 <section class="hero">
   <svg class="hero-monkey-bg" viewBox="0 0 500 500" fill="none" aria-hidden="true">
@@ -296,7 +338,7 @@
         One daily loop — 60 minutes in, the algorithm on your side. The AI-native system for creators who want to dominate short-form without burning out.
       </p>
       <div class="hero-ctas">
-        <button class="btn btn-primary btn-lg" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Unlock the System →</button>
+        <button class="btn btn-primary btn-lg" onclick="requireAuthThen('premium')">Unlock the System →</button>
         <a href="#pricing" class="btn btn-secondary btn-lg">See the tiers</a>
       </div>
       <div class="hero-trust">
@@ -410,7 +452,7 @@
     <div class="pricing-grid">
       <div class="pricing-card">
         <div class="pricing-tier-label">Basic</div>
-        <div class="pricing-amount"><sup>$</sup>29</div>
+        <div class="pricing-amount"><sup>$</sup>19<span class="pricing-cents">.99</span></div>
         <div class="pricing-cycle">one-time payment · instant access</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
@@ -419,13 +461,13 @@
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>7-day content calendar template</li>
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Community access</li>
         </ul>
-        <button class="pricing-btn pricing-btn-ghost" onclick="requireAuthThen('https://monkeygod.cloud/basic')">Get Basic</button>
+        <button class="pricing-btn pricing-btn-ghost" onclick="requireAuthThen('basic')">Get Basic</button>
         <div class="pricing-access-note">Instant digital access · Card or crypto accepted</div>
       </div>
       <div class="pricing-card featured">
         <div class="popular-badge">Most Popular</div>
         <div class="pricing-tier-label" style="margin-top:22px;">Premium</div>
-        <div class="pricing-amount"><sup>$</sup>49</div>
+        <div class="pricing-amount"><sup>$</sup>24<span class="pricing-cents">.99</span></div>
         <div class="pricing-cycle">one-time payment · instant access</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
@@ -436,12 +478,12 @@
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly platform teardown archive</li>
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Community access</li>
         </ul>
-        <button class="pricing-btn pricing-btn-accent" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Get Premium →</button>
+        <button class="pricing-btn pricing-btn-accent" onclick="requireAuthThen('premium')">Get Premium →</button>
         <div class="pricing-access-note">Instant digital access · Card or crypto accepted</div>
       </div>
       <div class="pricing-card">
         <div class="pricing-tier-label">Exclusive</div>
-        <div class="pricing-amount"><sup>$</sup>79</div>
+        <div class="pricing-amount"><sup>$</sup>39<span class="pricing-cents">.99</span></div>
         <div class="pricing-cycle">one-time payment · lifetime access</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
@@ -451,7 +493,7 @@
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Private async feedback channel — 1:1 content critique</li>
           <li class="pricing-feat"><svg class="feat-check" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="currentColor" stroke-opacity="0.25"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>First access to all new tools and playbooks</li>
         </ul>
-        <button class="pricing-btn pricing-btn-ghost" onclick="requireAuthThen('https://monkeygod.cloud/exclusive')">Get Exclusive</button>
+        <button class="pricing-btn pricing-btn-ghost" onclick="requireAuthThen('exclusive')">Get Exclusive</button>
         <div class="pricing-access-note">Instant digital access · Card or crypto accepted</div>
       </div>
     </div>
@@ -463,7 +505,7 @@
     <span class="eyebrow">What creators say</span>
     <h2 class="section-title">Results speak.<br>We let them.</h2>
     <div class="testimonials-grid">
-      <div class="testimonial-card"><div class="testimonial-qmark">"</div><p class="testimonial-body">Went from averaging 1,200 views per video to hitting 400K on my second post after running the Hook Mastery module. The hook vault alone is worth 10× the price. Still can't believe I paid $49 for this.</p><div class="testimonial-footer"><span class="testimonial-who">J.M.</span><span class="testimonial-tier-pill">Premium</span></div></div>
+      <div class="testimonial-card"><div class="testimonial-qmark">"</div><p class="testimonial-body">Went from averaging 1,200 views per video to hitting 400K on my second post after running the Hook Mastery module. The hook vault alone is worth 10× the price. Still can't believe I paid $24.99 for this.</p><div class="testimonial-footer"><span class="testimonial-who">J.M.</span><span class="testimonial-tier-pill">Premium</span></div></div>
       <div class="testimonial-card"><div class="testimonial-qmark">"</div><p class="testimonial-body">Was posting six days a week and burning out hard. Two weeks in with the Batching Protocol and I've cut my content time by 65%. Same results, way less stress. The system just works.</p><div class="testimonial-footer"><span class="testimonial-who">A.K.</span><span class="testimonial-tier-pill">Premium</span></div></div>
       <div class="testimonial-card"><div class="testimonial-qmark">"</div><p class="testimonial-body">Got Exclusive six months ago. Three updates since then, the live sessions are genuinely the best hour I spend monthly, and my X account went from 800 to 41K. MonkeyGod hit completely different.</p><div class="testimonial-footer"><span class="testimonial-who">D.R.</span><span class="testimonial-tier-pill">Exclusive</span></div></div>
     </div>
@@ -501,7 +543,7 @@
       <h2 class="section-title">One system. One hour a day.<br>The algorithm works for you.</h2>
       <p class="section-sub">Join 8,200+ creators who stopped grinding random content and started compounding. Pick your tier and get instant access today.</p>
       <div class="final-cta-btns">
-        <button class="btn btn-primary btn-lg" onclick="requireAuthThen('https://monkeygod.cloud/premium')">Unlock the System — $49 →</button>
+        <button class="btn btn-primary btn-lg" onclick="requireAuthThen('premium')">Unlock the System — $24.99 →</button>
         <a href="#pricing" class="btn btn-secondary btn-lg">Compare all tiers</a>
       </div>
       <div class="final-cta-note">One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; 7-day refund window</div>
@@ -562,7 +604,7 @@
       <div class="modal-tier-label" id="modalTierLabel">Premium</div>
       <button class="modal-close-btn" onclick="closeModal()" aria-label="Close">✕</button>
     </div>
-    <div class="modal-price-display" id="modalPriceDisplay">$49</div>
+    <div class="modal-price-display" id="modalPriceDisplay">$24.99</div>
     <div class="modal-cycle">One-time payment · Instant digital access</div>
     <ul class="modal-includes" id="modalIncludes"></ul>
     <div class="modal-divider"></div>
@@ -665,12 +707,38 @@
       navRight.innerHTML =
         '<a href="#pricing" class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;">See Tiers</a>' +
         '<button class="btn btn-secondary" style="padding:10px 18px;font-size:0.82rem;" onclick="openAuth(\'login\')">Log In</button>' +
-        '<button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen(\'https://monkeygod.cloud/premium\')">Get God Mode</button>';
+        '<button class="btn btn-primary" style="padding:10px 18px;font-size:0.82rem;" onclick="requireAuthThen(\'premium\')">Get God Mode</button>';
     }
   }
-  function requireAuthThen(url) {
-    if (authUser) { window.location.href = url; return; }
-    pendingUrl = url;
+  /* ══════════════════════════════════════════════════════════
+     CHECKOUT — mycheckout.live
+     Swap the `id` values below for the real product/price IDs
+     configured in your mycheckout.live dashboard for each tier.
+  ══════════════════════════════════════════════════════════ */
+  const CHECKOUT_BASE = 'https://mycheckout.live/checkout';
+  const SUCCESS_URL    = 'https://monkeygod.xyz/success.html';
+  const CANCEL_URL     = 'https://monkeygod.xyz/#pricing';
+  const TIERS = {
+    basic:     { id: 'monkeygod_basic',     price: '19.99' },
+    premium:   { id: 'monkeygod_premium',   price: '24.99' },
+    exclusive: { id: 'monkeygod_exclusive', price: '39.99' },
+  };
+  function buildCheckoutUrl(tierKey) {
+    const tier = TIERS[tierKey];
+    if (!tier) return null;
+    const params = new URLSearchParams({
+      product: tier.id,
+      tier: tierKey,
+      price: tier.price,
+      email: authUser ? authUser.email : '',
+      success_url: SUCCESS_URL + '?tier=' + encodeURIComponent(tierKey),
+      cancel_url: CANCEL_URL,
+    });
+    return CHECKOUT_BASE + '?' + params.toString();
+  }
+  function requireAuthThen(tierKey) {
+    if (authUser) { window.location.href = buildCheckoutUrl(tierKey); return; }
+    pendingUrl = tierKey;
     openAuth('signup');
   }
   function openAuth(mode) {
@@ -731,7 +799,7 @@
       authUser = { email: data.email };
       renderNavAuth();
       closeAuth();
-      if (pendingUrl) { const dest = pendingUrl; pendingUrl = null; window.location.href = dest; }
+      if (pendingUrl) { const dest = buildCheckoutUrl(pendingUrl); pendingUrl = null; if (dest) window.location.href = dest; }
     } catch {
       errEl.textContent = 'Network error — please try again.';
       errEl.classList.add('visible');
