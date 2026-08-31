@@ -34,9 +34,21 @@ function saveUsers(users) {
 
 ensureStore();
 
+// ── PDF delivery ──────────────────────────────────────────────────────────────
+// Guides live in /private and are only ever reachable through the authenticated
+// /api/download route below — never through express.static.
+const PDF_DIR = process.env.PDF_DIR || path.join(__dirname, 'private');
+const TIER_FILES = {
+  basic:     { file: 'basic.pdf',     label: 'MonkeyGod-Basic-Guide.pdf' },
+  premium:   { file: 'premium.pdf',   label: 'MonkeyGod-Premium-Guide.pdf' },
+  exclusive: { file: 'exclusive.pdf', label: 'MonkeyGod-Exclusive-Guide.pdf' },
+};
+
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.set('trust proxy', 1);
 app.use(express.json());
+// Block direct/static access to /private before the static file server ever sees it.
+app.use('/private', (_req, res) => res.status(404).end());
 app.use(express.static(__dirname));
 
 // ── Auth guard (used by protected routes) ────────────────────────────────────
@@ -112,6 +124,26 @@ app.get('/api/me', requireAuth, (req, res) => {
 
 // ── POST /api/logout (client clears token; server confirms) ──────────────────
 app.post('/api/logout', (_req, res) => res.json({ ok: true }));
+
+// ── GET /api/download/:tier ───────────────────────────────────────────────────
+// The one real gate on the PDFs: you must be logged in. mycheckout.live redirects
+// back to /success.html with the purchased tier in the URL, but does not (yet) call
+// a server-side webhook here — so this route trusts the tier the client asks for
+// rather than checking it against a stored order. If mycheckout.live adds webhook
+// support later, verify req.user.id against a recorded purchase for `tier` before
+// streaming the file, instead of trusting the param.
+app.get('/api/download/:tier', requireAuth, (req, res) => {
+  const tier = TIER_FILES[req.params.tier];
+  if (!tier) return res.status(404).json({ error: 'Unknown tier' });
+
+  const filePath = path.join(PDF_DIR, tier.file);
+  if (!fs.existsSync(filePath))
+    return res.status(404).json({ error: 'Guide not available yet — email support@monkeygod.xyz' });
+
+  res.download(filePath, tier.label, err => {
+    if (err && !res.headersSent) res.status(500).json({ error: 'Download failed — try again' });
+  });
+});
 
 // ── SPA fallback ──────────────────────────────────────────────────────────────
 app.get('*', (_req, res) => {
