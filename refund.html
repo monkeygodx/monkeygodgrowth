@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Refund Policy — MonkeyGod</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0D0B1A; --bg-card: #181628;
+  --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+  --text: #efefef; --text-secondary: #a7a7ad; --text-tertiary: #6b6b72;
+  --accent: #8040E8; --accent-dim: rgba(128,64,232,0.08); --accent-hover: #9333EA;
+  --glow-1: rgba(128,64,232,0.5); --glow-2: rgba(56,189,248,0.32);
+  --glass: rgba(24,22,40,0.55); --glass-border: rgba(255,255,255,0.09);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(128,64,232,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(128,64,232,0.05) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 78%);}
+.bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-aurora::before{content:'';position:absolute;width:640px;height:640px;border-radius:50%;filter:blur(120px);opacity:0.28;background:var(--glow-1);top:-16%;left:-14%;}
+.bg-aurora::after{content:'';position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:0.22;background:var(--glow-2);bottom:-18%;right:-10%;}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:56px 24px 100px;}
+.topnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:56px;}
+.logo{display:flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text);}
+.logo svg{width:26px;height:26px;}
+.back{font-size:0.85rem;color:var(--text-secondary);display:flex;align-items:center;gap:6px;}
+.back:hover{color:var(--accent);text-decoration:none;}
+.page-card{background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--glass-border);border-radius:20px;padding:48px 52px;}
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B37CFF;}
+h1{font-family:'Space Grotesk',sans-serif;font-size:2.1rem;font-weight:700;letter-spacing:-0.02em;margin:12px 0 6px;}
+.updated{font-size:0.82rem;color:var(--text-tertiary);margin-bottom:36px;}
+h2{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:-0.01em;margin:34px 0 12px;}
+h2:first-of-type{margin-top:0;}
+p{color:var(--text-secondary);font-size:0.94rem;line-height:1.75;margin-bottom:14px;}
+ul{margin:0 0 14px 22px;color:var(--text-secondary);font-size:0.94rem;line-height:1.75;}
+li{margin-bottom:6px;}
+strong{color:var(--text);font-weight:600;}
+.callout{border:1px solid rgba(128,64,232,0.32);background:rgba(128,64,232,0.07);border-radius:12px;padding:18px 22px;margin:22px 0;}
+.callout p{color:#d6d6da;margin-bottom:0;}
+.divider{height:1px;background:var(--border);margin:40px 0;}
+footer.page-footer{max-width:760px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1;display:flex;gap:20px;flex-wrap:wrap;font-size:0.8rem;color:var(--text-tertiary);}
+footer.page-footer a{color:var(--text-tertiary);}
+footer.page-footer a:hover{color:var(--text-secondary);}
+@media(max-width:600px){.page-card{padding:32px 26px;}h1{font-size:1.7rem;}}
+</style>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="topnav">
+      <a class="logo" href="/"><svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+  <circle cx="6" cy="19" r="6" fill="#8040E8"/><circle cx="6" cy="19" r="3.2" fill="#0D0B1A"/>
+  <circle cx="30" cy="19" r="6" fill="#8040E8"/><circle cx="30" cy="19" r="3.2" fill="#0D0B1A"/>
+  <ellipse cx="18" cy="18" rx="13" ry="13" fill="#8040E8"/>
+  <ellipse cx="18" cy="23" rx="7.5" ry="5.5" fill="#6D28D9"/>
+  <circle cx="13.5" cy="16.5" r="2.4" fill="#0D0B1A"/><circle cx="22.5" cy="16.5" r="2.4" fill="#0D0B1A"/>
+  <circle cx="14.3" cy="15.7" r="0.8" fill="white"/><circle cx="23.3" cy="15.7" r="0.8" fill="white"/>
+</svg>MonkeyGod</a>
+      <a class="back" href="/">&larr; Back to site</a>
+    </div>
+    <div class="page-card">
+      <span class="eyebrow">Legal</span>
+      
+  <h1>Refund Policy</h1>
+  <div class="updated">Last updated: August 31, 2026</div>
+
+  <p>We want you to be confident in what you're buying. Here's exactly how refunds work.</p>
+
+  <h2>1. The 7-day window</h2>
+  <p>If a purchased tier doesn't match what's described on the pricing page, you can request a full refund within <strong>7 days</strong> of your purchase date.</p>
+
+  <h2>2. How to request one</h2>
+  <p>Email <a href="mailto:monkeygodus@gmail.com">monkeygodus@gmail.com</a> from the email address on your MonkeyGod account, with the tier you purchased and your purchase date. We'll confirm and process eligible refunds back to your original payment method through mycheckout.live.</p>
+
+  <div class="callout"><p>We aim to respond to every refund request within <strong>one business day</strong>, and to process approved refunds within 5–10 business days depending on your bank or card issuer.</p></div>
+
+  <h2>3. What this policy covers</h2>
+  <p>This refund window applies to the digital guide and access included in your tier. It does not guarantee specific content results (see our <a href="/terms.html">Terms of Service</a>, section 5) — it covers whether the product matches its description.</p>
+
+  <h2>4. After 7 days</h2>
+  <p>Refund requests made after the 7-day window are reviewed on a case-by-case basis — email us and we'll take a look, but approval isn't guaranteed past the window.</p>
+
+  <h2>5. Chargebacks</h2>
+  <p>If you have an issue with a purchase, please email us first — we'd rather resolve it directly than have you file a chargeback with your bank, which can delay resolution on both sides.</p>
+
+  <div class="callout"><p><strong>Ready to request a refund?</strong> Email <a href="mailto:monkeygodus@gmail.com">monkeygodus@gmail.com</a> — we're straightforward about this.</p></div>
+
+    </div>
+  </div>
+  <footer class="page-footer">
+    <a href="/terms.html">Terms of Service</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/refund.html">Refund Policy</a>
+    <a href="mailto:monkeygodus@gmail.com">Contact</a>
+    <span>&copy; 2026 MonkeyGod. All rights reserved.</span>
+  </footer>
+</body>
+</html>
