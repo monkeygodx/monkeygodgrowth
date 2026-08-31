@@ -138,7 +138,7 @@ app.get('/api/download/:tier', requireAuth, (req, res) => {
 
   const filePath = path.join(PDF_DIR, tier.file);
   if (!fs.existsSync(filePath))
-    return res.status(404).json({ error: 'Guide not available yet — email support@monkeygod.xyz' });
+    return res.status(404).json({ error: 'Guide not available yet — email monkeygodus@gmail.com' });
 
   res.download(filePath, tier.label, err => {
     if (err && !res.headersSent) res.status(500).json({ error: 'Download failed — try again' });
