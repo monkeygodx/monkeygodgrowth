@@ -21,6 +21,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;overflow-x:hidden;}
     a{color:inherit;}
+    .page-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:22px;width:100%;max-width:820px;margin:0 auto;padding:24px 0;}
     .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
       background-image:linear-gradient(rgba(128,64,232,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(128,64,232,0.055) 1px,transparent 1px);
       background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 78%);
@@ -52,12 +53,25 @@
     .footnote{font-size:0.74rem;color:var(--text-tertiary);margin-top:26px;line-height:1.6;}
     .footnote a{color:var(--accent);text-decoration:none;}
     .hidden{display:none !important;}
+    .viewer-panel{position:relative;z-index:1;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--glass-border);border-radius:var(--radius-lg);width:100%;max-width:820px;overflow:hidden;box-shadow:0 20px 60px -24px rgba(128,64,232,0.4);}
+    .viewer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;border-bottom:1px solid var(--glass-border);}
+    .viewer-title{display:flex;align-items:center;gap:9px;font-size:0.84rem;font-weight:600;color:var(--text);}
+    .viewer-title svg{width:16px;height:16px;color:var(--accent);flex-shrink:0;}
+    .viewer-actions{display:flex;gap:8px;}
+    .viewer-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;font-size:0.76rem;font-weight:600;background:transparent;color:var(--text-secondary);border:1px solid var(--border-strong);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.18s ease;text-decoration:none;}
+    .viewer-btn:hover{border-color:rgba(128,64,232,0.4);color:var(--accent);}
+    .viewer-body{position:relative;background:#050410;}
+    .viewer-body iframe{width:100%;height:70vh;min-height:420px;border:none;display:block;}
+    .viewer-loading{padding:60px 24px;text-align:center;font-size:0.85rem;color:var(--text-tertiary);}
+    .viewer-error{padding:40px 24px;text-align:center;font-size:0.85rem;color:var(--text-secondary);}
+    .viewer-error a{color:var(--accent);}
   </style>
 </head>
 <body>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-aurora" aria-hidden="true"></div>
 
+  <div class="page-wrap">
   <div class="card">
     <div class="logo">
       <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
@@ -100,7 +114,26 @@
       <div class="status" id="dlStatus"></div>
     </div>
 
-    <div class="footnote">Trouble downloading? Email <a href="mailto:support@monkeygod.xyz">support@monkeygod.xyz</a> with your order and we'll sort it out.</div>
+    <div class="footnote">Trouble downloading? Email <a href="mailto:monkeygodus@gmail.com">monkeygodus@gmail.com</a> with your order and we'll sort it out.</div>
+  </div>
+
+  <div class="viewer-panel hidden" id="viewerPanel">
+    <div class="viewer-head">
+      <div class="viewer-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span id="viewerTitle">Your guide</span>
+      </div>
+      <div class="viewer-actions">
+        <a class="viewer-btn" id="openTabBtn" target="_blank" rel="noopener">Open in new tab</a>
+        <button class="viewer-btn" id="viewerDownloadBtn">Download</button>
+      </div>
+    </div>
+    <div class="viewer-body">
+      <div class="viewer-loading" id="viewerLoading">Loading your guide…</div>
+      <div class="viewer-error hidden" id="viewerErrorMsg">Couldn't load the preview here — use Download or Open in new tab above, or email <a href="mailto:monkeygodus@gmail.com">monkeygodus@gmail.com</a>.</div>
+      <iframe id="pdfFrame" class="hidden" title="Your MonkeyGod guide"></iframe>
+    </div>
+  </div>
   </div>
 
   <script>
@@ -145,38 +178,72 @@
 
       document.getElementById('tierPill').textContent = tier.label;
       document.getElementById('subText').textContent =
-        'Your ' + tier.label + ' access is live. Grab your guide below — it walks the whole system so you can start your first loop today.';
+        'Your ' + tier.label + ' access is live. Your guide is loading below — download it or read it right here.';
+      document.getElementById('viewerTitle').textContent = 'MonkeyGod — ' + tier.label + ' Guide';
       loadingEl.classList.add('hidden');
       successEl.classList.remove('hidden');
 
-      document.getElementById('downloadBtn').addEventListener('click', async () => {
-        const btn = document.getElementById('downloadBtn');
+      let cachedBlobUrl = null;
+      let cachedFilename = 'MonkeyGod-' + tier.label + '-Guide.pdf';
+
+      function saveAs(url, filename) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      async function fetchGuide() {
+        if (cachedBlobUrl) return cachedBlobUrl;
+        const res = await fetch('/api/download/' + tier.file, {
+          headers: { Authorization: 'Bearer ' + getToken() },
+        });
+        if (!res.ok) throw new Error('download failed');
+        const blob = await res.blob();
+        cachedBlobUrl = window.URL.createObjectURL(blob);
+        return cachedBlobUrl;
+      }
+
+      // Auto-load the guide into the inline viewer as soon as we land here.
+      (async () => {
+        const panel = document.getElementById('viewerPanel');
+        panel.classList.remove('hidden');
+        try {
+          const url = await fetchGuide();
+          const frame = document.getElementById('pdfFrame');
+          frame.src = url;
+          frame.classList.remove('hidden');
+          document.getElementById('viewerLoading').classList.add('hidden');
+          document.getElementById('openTabBtn').href = url;
+        } catch {
+          document.getElementById('viewerLoading').classList.add('hidden');
+          document.getElementById('viewerErrorMsg').classList.remove('hidden');
+        }
+      })();
+
+      async function handleDownloadClick(btn) {
         const statusEl = document.getElementById('dlStatus');
         btn.disabled = true;
         statusEl.className = 'status';
         statusEl.textContent = 'Preparing your download…';
         try {
-          const res = await fetch('/api/download/' + tier.file, {
-            headers: { Authorization: 'Bearer ' + getToken() },
-          });
-          if (!res.ok) throw new Error('download failed');
-          const blob = await res.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'MonkeyGod-' + tier.label + '-Guide.pdf';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          window.URL.revokeObjectURL(url);
+          const url = await fetchGuide();
+          saveAs(url, cachedFilename);
           statusEl.classList.add('ok');
           statusEl.textContent = 'Downloaded. Check your downloads folder.';
         } catch {
           statusEl.classList.add('error');
-          statusEl.textContent = "Couldn't fetch the file — email support@monkeygod.xyz and we'll get it to you.";
+          statusEl.textContent = "Couldn't fetch the file — email monkeygodus@gmail.com and we'll get it to you.";
         } finally {
           btn.disabled = false;
         }
+      }
+
+      document.getElementById('downloadBtn').addEventListener('click', e => handleDownloadClick(e.currentTarget));
+      document.getElementById('viewerDownloadBtn').addEventListener('click', async e => {
+        try { const url = await fetchGuide(); saveAs(url, cachedFilename); } catch {}
       });
     }
     init();
