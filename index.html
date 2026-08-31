@@ -244,7 +244,7 @@
     .bg-aurora::before{background:var(--glow-1);top:-18%;left:-12%;}
     .bg-aurora::after{background:var(--glow-2);bottom:-20%;right:-10%;animation-delay:-11s;animation-direction:reverse;}
     @keyframes aurora-drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(4%,5%) scale(1.12);}}
-    body > *:not(.bg-grid):not(.bg-aurora){position:relative;z-index:1;}
+    body > *:not(.bg-grid):not(.bg-aurora):not(.auth-backdrop):not(.modal-backdrop){position:relative;z-index:1;}
     ::selection{background:var(--accent);color:#fff;}
     .hero-headline .accent-line{background:linear-gradient(100deg,#8040E8 0%,#B37CFF 32%,#38BDF8 62%,#8040E8 100%);background-size:260% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradient-flow 7s linear infinite;}
     @keyframes gradient-flow{to{background-position:260% center;}}
@@ -563,9 +563,10 @@
         MonkeyGod
       </div>
       <ul class="footer-links">
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Refund Policy</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/refund.html">Refund Policy</a></li>
+        <li><a href="mailto:monkeygodus@gmail.com">Contact</a></li>
       </ul>
       <div class="footer-copy">© 2026 MonkeyGod. All rights reserved.</div>
     </div>
